@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		    <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
+			<link href="assets/css/font-awesome.min.css" rel="stylesheet">
+			<!-- <link href="style.css" rel="stylesheet"> -->
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			
+		<style>
+			*{
+				margin:0px;
+				padding:0px;
+			}
+			
+			#tabs{
+				width:100%;
+				margin-left:auto;
+				margin-right:auto;
+			}
+			
+			#tabs ul{
+				list-style:none;
+			}
+			#tabs ul li>a{
+				box-sizing:border-box;
+				width:20%;
+				float:left;
+				height:60px;
+				padding:10px;
+				color:rgb(255,255,102);
+				background:rgb(153,0,153);
+				line-height:40px;
+				text-align:center;
+			}
+			
+			#tabs ul li>a.selected {
+				background:rgb(255,255,102);
+				color:rgb(153,0,153);
+			}
+			#tabs>div{
+				clear:both;
+				width:100%;
+				height:400px;
+				display:none;
+			}
+			#tabs>div.active{
+				display:block;	
+			}
+			#tabs>div.divider{
+				width:100%;
+				height:5px;
+				background:rgb(255,255,102);
+				display:block;
+			}
+			.active>p{
+				text-align:center;
+				font:40px solid black;
+			
+			}
+
+			#pickup, #drop{
+				clear:both;
+				margin-top:30px;
+			}
+			.title>p,.refresh{
+				display:inline-block;
+			}
+			.title>p{
+				font:24px solid black;
+			}
+			.refresh{
+				float:right;
+				text-align:right;
+				
+			}
+			.refresh>a{
+				box-sizing:border-box;
+				width:20%;
+				height:60px;
+				padding:20px;
+				color:rgb(255,255,102);
+				background:rgb(153,0,153);
+				line-height:40px;
+				margin-left:1%;
+				
+			}
+			.cabDetails,.cabStatus{
+				float:left;
+			}
+			.userStatus{
+				
+				clear:both;
+			}
+			.userStatus>.userActions{
+				margin-top:30px;
+				box-sizing:border-box;
+				text-align:center;
+				margin-left:auto;
+				margin-right:auto;
+			}
+			.userStatus .userActions a{
+				box-sizing:border-box;
+				width:20%;
+				height:60px;
+				padding:20px;
+				color:rgb(255,255,102);
+				background:rgb(153,0,153);
+				line-height:40px;
+				margin-left:1%;
+			} 
+			
+			@media screen and (max-width: 420px) {
+				#tabs{
+					width:100%;
+				}
+				
+			}
+			@media screen and (min-width: 421px) {
+				#tabs{
+					width:100%;
+				}
+			}
+			@media screen and (min-width: 620px) {
+				#tabs{
+					width:100%;
+				}
+			}
+			
+			@media screen and (min-width: 769px) {
+				#tabs{
+					width:70%;
+				}
+			}
+			
+			
+			
+			
+		</style>
+	</head>
+	<body ><!-- ng-app="transportSystem"> -->
+	
+		<!-- <header id="top-menubar">
+		
+		 </header> -->
+		<!-- <div class="page-header">
+			<h1>TrAnZport Web Application <small> Enjoy the RIDE </small></h1>
+		</div>
+ -->
+		
+
+		<div id="tabs">
+			<ul>
+				<li><a  data-item="tabs-1" class="selected">HOME</a></li>
+				<li><a  data-item="tabs-2">NAVIGATE</a></li>
+				<li><a  data-item="tabs-3">ADHOC</a></li>
+				<li><a  data-item="tabs-4">SHIFT</a></li>
+				<li><a  data-item="tabs-5">HISTORY</a></li>
+			</ul>
+			<div class="divider"> </div>
+			<div id="tabs-1" class="active">
+				<p>Today Ride</p>
+				<div id="pickup">
+					<div class="title">
+						<p>Pickup @ <i> 7:35am</i> </p> <div id="pRefresh" class="refresh" > <a >REFRESH</a></div>
+					</div>
+					<div>
+						<div class="cabDetails">
+							<div> CAB Number : <span> TN19 K 0840 </span> </div>
+							<div> Driver Name : <span> Muthu Krishnan </span> </div>
+							<div> Mobile Number : <span> 9962234889 </span> </div>
+							<div> Starting Point : <span> Guduvanchery </span> </div>
+							<div> Boarding Point : <span> Vandalur </span> </div>
+						</div>
+						<div class="cabStatus">
+							<div> CAB Status </div>
+							<div class="Status"> Urapakkam </div>
+							<a class="button"> Navigate</a>
+						</div>
+					</div>
+					<div class="userStatus">
+						<div> My Status </div>
+						<div class="userActions">
+							<a  class="button">ARRIVED</a>
+							<a  class="button">BOARDED</a>
+							<a  class="button">REACHED</a>
+							<a  class="button">CNR</a>
+						</div>
+					</div>
+				</div>
+				
+				<div id="drop">
+					<div class="title">
+						<p>Drop @ <i> 6:15pm</i> </p> <div id="dRefresh" class="refresh" > <a>REFRESH</a></div>
+					</div>
+					<div>
+						<div class="cabDetails">
+							<div> CAB Number : <span> TN19 K 0840 </span> </div>
+							<div> Driver Name : <span> Muthu Krishnan </span> </div>
+							<div> Mobile Number : <span> 9962234889 </span> </div>
+							<div> Boarding Point : <span> Nevile Tower LS </span> </div>
+							<div> Lane Number : <span> 14 </span> </div>
+						</div>
+						<div class="cabStatus">
+							<div> CAB Status </div>
+							<div class="Status"> Nevile Tower LS </div>
+							<a class="button"> Navigate</a>
+						</div>
+					</div>
+					<div class="userStatus">
+						<div> My Status </div>
+						<div class="userActions">
+							<a  class="button">ARRIVED</a>
+							<a  class="button">BOARDED</a>
+							<a  class="button">REACHED</a>
+							<a  class="button">CNR</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div id="tabs-2">
+				<p>navigate.</p>
+			</div>
+			<div id="tabs-3">
+				<p>Adhoc.</p>
+			</div>
+			<div id="tabs-4">
+				<p>Shift.</p>
+			</div>
+			<div id="tabs-5">
+				<p>History.</p>
+			</div>
+		</div>
+		<!-- <section id="main-content" ng-view>
+			
+			<div >
+				hello
+			</div>
+		
+		</section> -->
+		
+		<footer id="footer">
+		
+		</footer>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<!-- 
+		<script src="assets/js/angular.js"></script>
+
+		<script src="transport.js"></script>
+	 	
+		<script src="assets/js/controllers.js"></script>
+		<script src="assets/js/directives.js"></script>
+		<script src="assets/js/filters.js"></script>
+		<script src="assets/js/services.js"></script> 
+	-->
+	
+		<script type="text/javascript">
+			$(function() {
+				$( "#tabs>ul li a" ).click(function(e){
+					e.preventDefault();
+					console.log(e.target.attributes[0].value);
+					var attr= e.target.attributes[0].value;
+					$("#tabs>div").removeClass("active");
+					var anchor= $( "#tabs ul li a" );
+					anchor.removeClass('selected');
+					$(e.target).addClass('selected');
+					$("#"+attr).addClass("active");
+				});
+			  });
+		</script>
+	</body>
+</html>
