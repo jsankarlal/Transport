@@ -3,141 +3,19 @@
 	<head>
 		    <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
 			<link href="assets/css/font-awesome.min.css" rel="stylesheet">
-			<!-- <link href="style.css" rel="stylesheet"> -->
+			<link href="assets/css/transport.css" rel="stylesheet">
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 			
 		<style>
-			*{
-				margin:0px;
-				padding:0px;
-			}
-			
-			#tabs{
-				width:100%;
-				margin-left:auto;
-				margin-right:auto;
-			}
-			
-			#tabs ul{
-				list-style:none;
-			}
-			#tabs ul li>a{
-				box-sizing:border-box;
-				width:20%;
-				float:left;
-				height:60px;
-				padding:10px;
-				color:rgb(255,255,102);
-				background:rgb(153,0,153);
-				line-height:40px;
-				text-align:center;
-			}
-			
-			#tabs ul li>a.selected {
-				background:rgb(255,255,102);
-				color:rgb(153,0,153);
-			}
-			#tabs>div{
-				clear:both;
-				width:100%;
-				height:400px;
-				display:none;
-			}
-			#tabs>div.active{
-				display:block;	
-			}
-			#tabs>div.divider{
-				width:100%;
-				height:5px;
-				background:rgb(255,255,102);
-				display:block;
-			}
-			.active>p{
-				text-align:center;
-				font:40px solid black;
-			
-			}
-
-			#pickup, #drop{
-				clear:both;
-				margin-top:30px;
-			}
-			.title>p,.refresh{
-				display:inline-block;
-			}
-			.title>p{
-				font:24px solid black;
-			}
-			.refresh{
-				float:right;
-				text-align:right;
-				
-			}
-			.refresh>a{
-				box-sizing:border-box;
-				width:20%;
-				height:60px;
-				padding:20px;
-				color:rgb(255,255,102);
-				background:rgb(153,0,153);
-				line-height:40px;
-				margin-left:1%;
-				
-			}
-			.cabDetails,.cabStatus{
-				float:left;
-			}
-			.userStatus{
-				
-				clear:both;
-			}
-			.userStatus>.userActions{
-				margin-top:30px;
-				box-sizing:border-box;
-				text-align:center;
-				margin-left:auto;
-				margin-right:auto;
-			}
-			.userStatus .userActions a{
-				box-sizing:border-box;
-				width:20%;
-				height:60px;
-				padding:20px;
-				color:rgb(255,255,102);
-				background:rgb(153,0,153);
-				line-height:40px;
-				margin-left:1%;
-			} 
-			
-			@media screen and (max-width: 420px) {
-				#tabs{
-					width:100%;
-				}
-				
-			}
-			@media screen and (min-width: 421px) {
-				#tabs{
-					width:100%;
-				}
-			}
-			@media screen and (min-width: 620px) {
-				#tabs{
-					width:100%;
-				}
-			}
-			
-			@media screen and (min-width: 769px) {
-				#tabs{
-					width:70%;
-				}
-			}
-			
+		
 			
 			
 			
 		</style>
 	</head>
-	<body ><!-- ng-app="transportSystem"> -->
+	<body ng-app="tranzApp" ><!-- ng-app="transportSystem"> -->
+	
+		
 	
 		<!-- <header id="top-menubar">
 		
@@ -157,38 +35,42 @@
 				<li><a  data-item="tabs-5">HISTORY</a></li>
 			</ul>
 			<div class="divider"> </div>
-			<div id="tabs-1" class="active">
-				<p>Today Ride</p>
-				<div id="pickup">
-					<div class="title">
-						<p>Pickup @ <i> 7:35am</i> </p> <div id="pRefresh" class="refresh" > <a >REFRESH</a></div>
+			<div id="tabs-1" class="active" ng-controller="homeController">
+			
+				<p>{{ name | greet }}</p> 
+    			
+    			<!-- <p> Your ride will start in another<span class="time"> {{ride.timeToStart}} </span> minutes </p> -->
+  			
+				<div id="ride">
+					<div class="panel">
+						<p class="title"> <span ng-if="!ride.type">Ride </span><span ng-if="ride.type=='pickup'">Pickup </span><span ng-if="ride.type=='drop'">Drop </span>@ <i> {{ride.time }}</i> </p> 
 					</div>
-					<div>
-						<div class="cabDetails">
-							<div> CAB Number : <span> TN19 K 0840 </span> </div>
-							<div> Driver Name : <span> Muthu Krishnan </span> </div>
-							<div> Mobile Number : <span> 9962234889 </span> </div>
-							<div> Starting Point : <span> Guduvanchery </span> </div>
-							<div> Boarding Point : <span> Vandalur </span> </div>
+					<div class="panel">
+						<div class="cabDetails panel">
+							<div> CAB Number : <span> {{ride.cabNumber}} </span> </div>
+							<div> Driver Name : <span>  {{ride.driverName}} </span> </div>
+							<div> Mobile Number : <span> {{ride.contactNumber}} </span> </div>
+							<div> Starting Point : <span>  {{ride.startingPoint.location}} </span> </div>
+							<div> Boarding Point : <span>  {{ride.boardingPoint.location}} </span> </div>
+							<div ng-if="ride.type=='drop' && ride.laneNumber">Lane Number : <span>  {{ride.laneNumber}} </span> </div>
 						</div>
-						<div class="cabStatus">
-							<div> CAB Status </div>
-							<div class="Status"> Urapakkam </div>
-							<a class="button"> Navigate</a>
+						<div class="cabStatus panel">
+							<p class="title"> CAB Status </p>
+							<p class="Status"> {{ride.currentLocation.location}} </p>
+							<a class="button"> Navigate </a>
 						</div>
 					</div>
-					<div class="userStatus">
-						<div> My Status </div>
-						<div class="userActions">
-							<a  class="button">ARRIVED</a>
-							<a  class="button">BOARDED</a>
-							<a  class="button">REACHED</a>
-							<a  class="button">CNR</a>
+					<div class="userStatus panel">
+						<p class="title subTitle"> My Status </p>
+						<div class="userActions panel">
+							<a  class="button" ng-click="boarded()">BOARDED</a>
+							<a  class="button" ng-click="reached()">REACHED</a>
+							<span ng-if="ride.type=='drop'"></span><a  class="button" ng-click="cabNotRequired()">CNR</a>
 						</div>
 					</div>
 				</div>
 				
-				<div id="drop">
+				<!-- <div id="drop">
 					<div class="title">
 						<p>Drop @ <i> 6:15pm</i> </p> <div id="dRefresh" class="refresh" > <a>REFRESH</a></div>
 					</div>
@@ -198,7 +80,7 @@
 							<div> Driver Name : <span> Muthu Krishnan </span> </div>
 							<div> Mobile Number : <span> 9962234889 </span> </div>
 							<div> Boarding Point : <span> Nevile Tower LS </span> </div>
-							<div> Lane Number : <span> 14 </span> </div>
+							<div ng-if="true"> Lane Number : <span> 14 </span> </div>
 						</div>
 						<div class="cabStatus">
 							<div> CAB Status </div>
@@ -209,13 +91,12 @@
 					<div class="userStatus">
 						<div> My Status </div>
 						<div class="userActions">
-							<a  class="button">ARRIVED</a>
 							<a  class="button">BOARDED</a>
 							<a  class="button">REACHED</a>
 							<a  class="button">CNR</a>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 			</div>
 			<div id="tabs-2">
@@ -244,9 +125,10 @@
 		</footer>
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/bootstrap.min.js"></script>
-		<!-- 
+	
 		<script src="assets/js/angular.js"></script>
-
+		<script src="assets/js/app.js"></script>
+	<!-- 
 		<script src="transport.js"></script>
 	 	
 		<script src="assets/js/controllers.js"></script>
