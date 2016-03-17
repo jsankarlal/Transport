@@ -1,7 +1,8 @@
 var tranzApp = angular.module('tranzApp',[]);
 
-tranzApp.controller('homeController',['$scope', function($scope) {
-	$scope.name="Rajesh";
+tranzApp.controller('tabsController',['$scope', function($scope) {
+	$scope.name = "Rajesh";
+	$scope.tab = 1;
 	$scope.ride1 = {
 			type: "drop",
 			time:'6.15pm',
@@ -57,6 +58,24 @@ tranzApp.controller('homeController',['$scope', function($scope) {
 				longtitude:12345.67
 			}
 		};
+	
+	$scope.homeTab = function() {
+		$scope.tab = 1;
+	};
+	$scope.navigateTab = function() {
+		$scope.tab = 2;
+	};
+	$scope.shiftTab = function() {
+		$scope.tab = 4;
+	};
+	$scope.adhocTab = function() {
+		$scope.tab = 3;
+	};
+	$scope.historyTab = function() {
+		$scope.tab = 5;
+	};
+	
+	
 	$scope.boarded = function() {
 		console.log("boarded");
 	};
