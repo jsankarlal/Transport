@@ -1,0 +1,55 @@
+$scope.ride1 = {
+			type: "drop",
+			time:'6.15pm',
+			cabNumber: "TN19 K 5761",
+			driverName: "Muthu Krishnan",
+			contactNumber: 9962234889,
+			laneNumber:22,
+			startingPoint:{
+				location:"Nevile Tower LS",
+				latitude:23456.89,
+				longtitude:12345.67
+			},
+			boardingPoint:{
+				location:"Nevile Tower LS",
+				latitude:23456.89,
+				longtitude:12345.67
+			},
+			currentLocation:{
+				location:"Nevile Tower LS",
+				latitude:23456.89,
+				longtitude:12345.67
+			},
+			destination: {
+				location:"Urapakkam school Bus Stop",
+				latitude:23456.89,
+				longtitude:12345.67
+			}
+		};
+	$scope.ride = {
+			type: "pickup",
+			time:'7.35am',
+			cabNumber: "TN19 K 5761",
+			driverName: "Muthu Krishnan",
+			contactNumber: 9962234889,
+			startingPoint:{
+				location:"Guduvanchery",
+				latitude:23456.89,
+				longtitude:12345.67
+			},
+			boardingPoint:{
+				location:"Urapakkam school Bus Stop",
+				latitude:23456.89,
+				longtitude:12345.67
+			},
+			currentLocation:{
+				location:"Guduvanchery",
+				latitude:23456.89,
+				longtitude:12345.67
+			},
+			destination: {
+				location:"Nevile Tower LS",
+				latitude:23456.89,
+				longtitude:12345.67
+			}
+		};

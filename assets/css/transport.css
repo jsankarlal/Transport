@@ -17,17 +17,16 @@
 	box-sizing:border-box;
 	width:20%;
 	float:left;
-	height:60px;
-	padding:10px;
+	padding:7% 0px;
 	color:rgb(255,255,102);
 	background:rgb(153,0,153);
-	line-height:40px;
 	text-align:center;
 }
 
 #tabs ul li>a.selected {
 	background:rgb(255,255,102);
 	color:rgb(153,0,153);
+	text-decoration: none;
 }
 #tabs>div{
 	clear:both;
@@ -53,6 +52,8 @@
 #ride{
 	clear:both;
 	margin-top:30px;
+	margin-left:5%;
+	margin-right:5%;
 }
 .title>p{
 	display:inline-block;
@@ -71,25 +72,28 @@
 .refresh>a{
 	box-sizing:border-box;
 	width:20%;
-	height:60px;
-	padding:20px;
+	padding:7% 5%;
 	color:rgb(255,255,102);
 	background:rgb(153,0,153);
 	line-height:40px;
-	margin-left:1%;
+	margin-left:5%;
 	
 }
 .cabStatus,.cabDetails{
 	display:inline-block;
 }
 .cabDetails{
-	width:60%;
+	width:65%;
 	box-sizing:border-box;
+}
+.textValues{
+	font-weight:bold;
+	font:18px black;
 }
 .cabStatus{
 	text-align:center;
 	float:right;
-	width:40%;
+	width:35%;
 	box-sizing:border-box;
 }
 
@@ -106,14 +110,38 @@
 }
 .userStatus .userActions a{
 	box-sizing:border-box;
-	width:20%;
-	height:60px;
-	padding:20px;
+	padding:7% 5%;
 	color:rgb(255,255,102);
 	background:rgb(153,0,153);
-	line-height:40px;
-	margin-left:1%;
+	margin-left:2%;
+	
 } 
+.btn-success {
+    color: #fff;
+    background-color: #7D1358;
+    border-color: #7D1358;
+}
+@media screen and (max-width: 320px) {
+	#tabs{
+		width:100%;
+	}
+	.cabDetails{
+		width:100%;
+		box-sizing:border-box;
+		text-align:center;
+		margin-left:auto;
+		margin-righ:auto;
+	}
+	.textValues{
+		font-weight:bold;
+		font:14px black;
+	}
+	.cabStatus{
+		text-align:center;
+		width:100%;
+		box-sizing:border-box;
+	}
+}
 
 @media screen and (max-width: 420px) {
 	#tabs{

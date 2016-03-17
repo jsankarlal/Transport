@@ -3,7 +3,11 @@ var tranzApp = angular.module('tranzApp',[]);
 tranzApp.controller('tabsController',['$scope', function($scope) {
 	$scope.name = "Rajesh";
 	$scope.tab = 1;
-	$scope.ride1 = {
+	$scope.modalDisplay = false;
+	$scope.timeLimit = 0;
+	$scope.adhocList = [15,18,20,21,23];
+	$scope.cnrButton = true;
+	$scope.ride = {
 			type: "drop",
 			time:'6.15pm',
 			cabNumber: "TN19 K 5761",
@@ -31,7 +35,7 @@ tranzApp.controller('tabsController',['$scope', function($scope) {
 				longtitude:12345.67
 			}
 		};
-	$scope.ride = {
+	$scope.ride1 = {
 			type: "pickup",
 			time:'7.35am',
 			cabNumber: "TN19 K 5761",
@@ -80,12 +84,35 @@ tranzApp.controller('tabsController',['$scope', function($scope) {
 		console.log("boarded");
 	};
 	
+	$scope.renderNavigation = function() {
+		$scope.tab = 2;
+	};
+	
 	$scope.reached = function() {
 		console.log("reached");
 	};
-	
+	$scope.nextAdhocDrops= function(){
+		  return function(adhoc){
+	    	var d = new Date();
+	    	timeLimit = d.getHours()+2;
+	      return adhoc > timeLimit;
+	    }
+	}
+	$scope.bookAdhoc= function(adhoc) {
+		console.log("cab is booked for "+adhoc+"pm   Drop");
+		$scope.cnrButton = false;
+	};
 	$scope.cabNotRequired = function() {
-		console.log("cabNotRequired");
+		$("#myModal").modal('show');
+	};
+	
+	$scope.confirmCNR = function() {
+		console.log("Drop has been Cancelled Successfully");
+		$scope.cnrButton = false;
+	};
+	
+	$scope.closeCNRmodal = function() {
+		console.log("close modal");
 	};
 	
 }]);

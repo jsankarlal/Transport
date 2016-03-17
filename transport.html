@@ -4,12 +4,12 @@
 		    <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
 			<link href="assets/css/font-awesome.min.css" rel="stylesheet">
 			<link href="assets/css/transport.css" rel="stylesheet">
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+
 			<meta name="viewport" content="width=device-width, initial-scale=1">
 			
 		<style>
-		
-			
-			
 			
 		</style>
 	</head>
@@ -25,14 +25,14 @@
 		</div>
  -->
 		
-
-		<div id="tabs" ng-controller="tabsController">
+	<div ng-controller="tabsController">
+		<div id="tabs" >
 			<ul>
-				<li><a  data-item="tabs-1" ng-class="{'selected' : tab==1}" ng-click="homeTab()">HOME</a></li>
-				<li><a  data-item="tabs-2" ng-class="{'selected': tab==2 }" ng-click="navigateTab()">NAVIGATE</a></li>
-				<li><a  data-item="tabs-3" ng-class="{'selected': tab==3 }" ng-click="adhocTab()">ADHOC</a></li>
-				<li><a  data-item="tabs-4" ng-class="{'selected': tab==4 }" ng-click="shiftTab()">SHIFT</a></li>
-				<li><a  data-item="tabs-5" ng-class="{'selected': tab==5 }" ng-click="historyTab()">HISTORY</a></li>
+				<li><a  data-item="tabs-1" ng-class="{'selected' : tab==1}" ng-click="tab=1">HOME</a></li>
+				<li><a  data-item="tabs-2" ng-class="{'selected': tab==2 }" ng-click="tab=2">NAVIGATE</a></li>
+				<li><a  data-item="tabs-3" ng-class="{'selected': tab==3 }" ng-click="tab=3">ADHOC</a></li>
+				<li><a  data-item="tabs-4" ng-class="{'selected': tab==4 }" ng-click="tab=4">SHIFT</a></li>
+				<li><a  data-item="tabs-5" ng-class="{'selected': tab==5 }" ng-click="tab=5">HISTORY</a></li>
 			</ul>
 			<div class="divider"> </div>
 			<div id="tabs-1" ng-class="{'active': tab==1 }" >
@@ -42,30 +42,30 @@
     			<!-- <p> Your ride will start in another<span class="time"> {{ride.timeToStart}} </span> minutes </p> -->
   			
 				<div id="ride">
-					<div class="panel">
+					<div class="">
 						<p class="title"> <span ng-if="!ride.type">Ride </span><span ng-if="ride.type=='pickup'">Pickup </span><span ng-if="ride.type=='drop'">Drop </span>@ <i> {{ride.time }}</i> </p> 
 					</div>
-					<div class="panel">
-						<div class="cabDetails panel">
-							<div> CAB Number : <span> {{ride.cabNumber}} </span> </div>
-							<div> Driver Name : <span>  {{ride.driverName}} </span> </div>
-							<div> Mobile Number : <span> {{ride.contactNumber}} </span> </div>
-							<div> Starting Point : <span>  {{ride.startingPoint.location}} </span> </div>
-							<div> Boarding Point : <span>  {{ride.boardingPoint.location}} </span> </div>
-							<div ng-if="ride.type=='drop' && ride.laneNumber">Lane Number : <span>  {{ride.laneNumber}} </span> </div>
+					<div>
+						<div class="cabDetails">
+							<div> CAB Number : <span class="textValues"> {{ride.cabNumber}} </span> </div>
+							<div> Driver Name : <span class="textValues" >  {{ride.driverName}} </span> </div>
+							<div> Mobile Number : <span class="textValues"> {{ride.contactNumber}} </span> </div>
+							<div> Starting Point : <span class="textValues">  {{ride.startingPoint.location}} </span> </div>
+							<div> Boarding Point : <span class="textValues">  {{ride.boardingPoint.location}} </span> </div>
+							<div ng-if="ride.type=='drop' && ride.laneNumber">Lane Number : <span class="textValues">  {{ride.laneNumber}} </span> </div>
 						</div>
-						<div class="cabStatus panel">
+						<div class="cabStatus">
 							<p class="title"> CAB Status </p>
 							<p class="Status"> {{ride.currentLocation.location}} </p>
-							<a class="button"> Navigate </a>
+							<a class="btn btn-primary btn-success" ng-click="renderNavigation()"> Navigate </a>
 						</div>
 					</div>
-					<div class="userStatus panel">
+					<div class="userStatus">
 						<p class="title subTitle"> My Status </p>
-						<div class="userActions panel">
-							<a  class="button" ng-click="boarded()">BOARDED</a>
-							<a  class="button" ng-click="reached()">REACHED</a>
-							<span ng-if="ride.type=='drop'"></span><a  class="button" ng-click="cabNotRequired()">CNR</a>
+						<div class="userActions">
+							<a  class="btn btn-primary btn-success" ng-click="boarded()">BOARDED</a>
+							<a  class="btn btn-primary btn-success" ng-click="reached()">REACHED</a>
+							<span ng-if="ride.type=='drop' && cnrButton == true"><a  class="btn btn-primary btn-success" ng-click="cabNotRequired()">CNR</a></span>
 						</div>
 					</div>
 				</div>
@@ -88,6 +88,37 @@
 				<p>History.</p>
 			</div>
 		</div>
+		<div id="myModal" class="modal fade">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title">Confirmation</h4>
+		            </div>
+		            <div class="modal-body">
+		                <p>Do you want to book Next Available Drop request ?</p>
+		                <p class="text-warning"><small>Please select from the below list. If you don't book, your drop/pickup cab will be cancelled.</small></p>
+		                <button type="button" ng-repeat="adhoc in adhocList | filter: nextAdhocDrops()"" class="btn btn-default" data-dismiss="modal" ng-click="bookAdhoc(adhoc)">{{adhoc}}pm</button>
+		            </div>
+		            
+		            <div class="modal-footer">
+		            	
+		                
+						<!--
+						 <button type="button" class="btn btn-default" data-dismiss="modal">8pm</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">8m</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">9pm</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">11pm</button> 
+						-->
+						
+		                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="confirmCNR()">CONFIRM</button>
+		                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="closeCNRmodal()">CANCEL</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div>
+		
 		<!-- <section id="main-content" ng-view>
 			
 			<div >
@@ -112,63 +143,12 @@
 		<script src="assets/js/filters.js"></script>
 		<script src="assets/js/services.js"></script> 
 	-->
+ 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js"></script>
 	
-		<script type="text/javascript">
-		 function initialize() {
-			  var mapProp = {
-			    center:new google.maps.LatLng(12.9786,80.2409),
-			    zoom:5,
-			    mapTypeId:google.maps.TravelMode.DRIVING
-			  };
-			  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-			} 
-			google.maps.event.addDomListener(window, 'load', initialize);
-			
-			/*
-			function initMap() {
-				  var chicago = {lat: 12.9786, lng: -87.65};
-				  var indianapolis = {lat: 39.79, lng: -86.14};
 
-				  var map = new google.maps.Map(document.getElementById('map'), {
-				    center: chicago,
-				    scrollwheel: false,
-				    zoom: 7
-				  });
 
-				  var directionsDisplay = new google.maps.DirectionsRenderer({
-				    map: map
-				  });
 
-				  // Set destination, origin and travel mode.
-				  var request = {
-				    destination: indianapolis,
-				    origin: chicago,
-				    travelMode: google.maps.TravelMode.DRIVING
-				  };
-
-				  // Pass the directions request to the directions service.
-				  var directionsService = new google.maps.DirectionsService();
-				  directionsService.route(request, function(response, status) {
-				    if (status == google.maps.DirectionsStatus.OK) {
-				      // Display the route on the map.
-				      directionsDisplay.setDirections(response);
-				    }
-				  });
-				}
-			*/
-/* 			$(function() {
-				$( "#tabs>ul li a" ).click(function(e){
-					e.preventDefault();
-					console.log(e.target.attributes[0].value);
-					var attr= e.target.attributes[0].value;
-					$("#tabs>div").removeClass("active");
-					var anchor= $( "#tabs ul li a" );
-					anchor.removeClass('selected');
-					$(e.target).addClass('selected');
-					$("#"+attr).addClass("active");
-				});
-			  }); */
-		</script>
 	</body>
 </html>
